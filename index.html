@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Ember Pagination</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Juan Jardim & Edgar Felix">
+    <meta name="developer" content="Juan Jardim & Edgar Felix">
+    <meta name="design" content="Juan Jardim & Edgar Felix">
+    <meta name="copyright" content="Juan Jardim & Edgar Felix">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="third-party/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+
+<script type="text/x-handlebars" data-template-name="application">
+    <header>
+        <div class="navbar navbar-default header-navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Ember Pagination</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div id="wrap">
+        <div class="page-container">
+            <div class="container">
+                {{#view MainAppView}}
+                <div class="row" style="height: 100%">
+                    <div class="col-md-12">
+                        <div class="margin">
+                            <div class="page-header no-margin-top">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <h3 class="no-margin"> Cities
+                                            <div {{bind-attr class="MainAppController.DataState.loading"}}><span class="loading-icon"></span></div>
+                                    </h3>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="row">
+                                        <div class="col-md-offset-6 col-md-6">
+                                            <div class="input-group">
+                                                <input class="form-control typeahead" id="searchCity" type="text" autocomplete="off" data-provide="typeahead-cities">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" {{action searchCity target="view"}}><span class="glyphicon glyphicon-search"></span></button>
+                                                </div>
+                                            </div><!-- /input-group -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="paging">
+                            <div class="row paging-container">
+                                {{#each Cities.currentPageContent}}
+                                <div class="col-xs-2" {{action selectCity this target="view"}}>
+                                <div class="paging-block shadow text-center" {{bind-attr elementId="id"}}>
+                                <div class="paging-text-m">{{name}}</div>
+                                <div class="paging-text-s">{{main.temp}} º</div>
+                            </div> </div>
+                        {{/each}}
+                    </div>
+                </div>
+                {{#if Cities.paginationNums}}
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">{{Cities.totalItems}} resultado(s)</div>
+                    <div class="col-md-6 text-right">
+                        {{#view PaginationView}}
+                        <ul class="pagination no-margin" id="cities-paging">
+                            <li id="prev"><a href="#" {{action performPageBack "Cities" target="view"}}>&laquo;</a></li>
+                            {{#each Cities.paginationNums}}
+                            <li {{bind-attr yoPagingNumber="page" class="visible"}}>
+                            <a href="#" {{action performPageChange "Cities" this target="view"}}>{{text}}</a>
+                            </li>
+                            {{/each}}
+                            <li id="next"><a href="#" {{action performPageNext "Cities" target="view"}}>&raquo;</a></li>
+                        </ul>
+                        {{/view}}
+                    </div>
+                </div><!-- /cities-list -->
+                {{/if}}
+            </div>
+        </div>
+        <div class="row">
+            Data from: <a href="http://openweathermap.org/current">open weather map</a>
+        </div>
+    </div>
+    {{/view}}
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <div class="copyright"><?php date("Y"); ?> © Juan Jardim & Edgar Felix. All Rights Reserved.</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</script>
+<script src="ember/libs/jquery-1.10.2.js"></script>
+<script src="ember/libs/handlebars-1.1.2.js"></script>
+<script src="ember/libs/ember-1.6.1.js"></script>
+<script src="typeahead/typeAheadElements.js"></script>
+<script src="typeahead/typeAhead.js"></script>
+<script src="ember/Pagination/InputState.js"></script>
+<script src="ember/Pagination/Pagination.js"></script>
+<script src="ember/Pagination/PaginationController.js"></script>
+<script src="ember/Pagination/PaginationView.js"></script>
+<script src="ember/Pagination/app.js"></script>
