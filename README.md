@@ -52,4 +52,4 @@ The MIT License (MIT)
 
 
 [Ember.js]:http://emberjs.com/
-[demo]:http://juanjardim.com/emberpagination
+[demo]:http://juanjardim.com/index/emberpagination
